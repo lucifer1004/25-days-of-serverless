@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>光明节陀螺</title>
+  </head>
+  <body>
+    <div id="container">
+      <div id="dreidel" title="Animated Bat by Calciumtrice"></div>
+      <button id="button">开始旋转</button>
+      <h1 id="result">最后的结果是：{{$result}}</h1>
+    </div>
+    <style>
+      #container {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #button {
+        margin: 10px;
+      }
+
+      #dreidel {
+        background-image: url("https://i.imgur.com/R2Cp5Va.png");
+        width: 600px;
+        height: 550px;
+        animation-name: anim;
+        animation-duration: 1.6s;
+        animation-timing-function: steps(16);
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes anim {
+        100% {
+          background-position: -9600px;
+        }
+      }
+    </style>
+    <script>
+      const dreidel = document.getElementById("dreidel");
+      const button = document.getElementById("button");
+      const result = document.getElementById("result");
+      result.style.visibility = "hidden";
+      dreidel.style.animationPlayState = "paused";
+
+      const raw = result.innerHTML;
+      const match = result.innerHTML.match(/נ|ג|ה|ש/);
+      const text = match ? match[0] : null;
+      const dict = {
+        נ: 1700,
+        ג: 1900,
+        ה: 2100,
+        ש: 2300
+      };
+
+      let startTime, stopTime;
+      button.onclick = () => {
+        dreidel.style.animationPlayState = "running";
+        startTime = Date.now();
+        button.innerHTML = "停止旋转";
+        button.onclick = () => {
+          button.style.visibility = "hidden";
+          stopTime = Date.now();
+          const duration = stopTime - startTime;
+          if (text)
+            setTimeout(() => {
+              dreidel.style.animationPlayState = "paused";
+              result.style.visibility = "visible";
+            }, dict[text] - duration % 1600);
+        };
+      };
+    </script>
+  </body>
+</html>

@@ -43,3 +43,9 @@ exports.main_handler = async (event, context, callback) => {
 ## 小结
 
 第一个挑战，主要是为了熟悉云函数的使用和配置方法，并没有太大的难度。可以看到，在命令行工具`scf-cli`和 VSCode 插件`tencent-SCF`的辅助下，开发腾讯云云函数上手起来非常容易。
+
+## 后续
+
+如果不使用集成响应`IntegratedResponse`，云函数的返回会作为返回值的`body`字段。如果想要更加灵活地定制状态码和渲染内容，可以在`template.yml`或在控制台中配置启用集成响应，然后就可以返回定制的 HTML 等内容了。
+
+最后放上[试玩地址](https://service-anfeux6t-1252420127.bj.apigw.tencentcs.com/release/challenge-1/dreidel)。
